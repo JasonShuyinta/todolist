@@ -1,0 +1,46 @@
+module.exports = {
+    SERVER_URL : `${process.env.REACT_APP_SERVER_URL}/todolist`,
+    modules: {
+        toolbar: [
+          ["bold", "italic", "underline", { color: [] }],
+          [{ list: "ordered" }, { list: "bullet" }, { align: [] }],
+          ["clean"],
+        ],
+      },
+      formats: [
+        "header",
+        "bold",
+        "italic",
+        "underline",
+        "color",
+        "list",
+        "bullet",
+        "align",
+      ],
+      fullScreenModules: {
+        toolbar: [
+          ["bold", "italic", "underline", "blockquote"],
+          [{ list: "ordered" }, { list: "bullet" }],
+          [{ color: [] }, { background: [] }],
+          [{ header: [1, 2, 3, false] }],
+          [{ script: "sub" }, { script: "super" }],
+          [{ font: [] }],
+          [{ align: [] }],
+        ],
+      },
+      fullScreenFormats: [
+        "bold",
+        "italic",
+        "underline",
+        "color",
+        "blockquote",
+        "list",
+        "bullet",
+        "indent",
+        "script",
+        "header",
+        "background",
+        "align",
+        "font",
+      ],
+}

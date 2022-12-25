@@ -1,0 +1,64 @@
+/* groovylint-disable LineLength */
+pipeline {
+        agent any
+
+        tools {
+            maven 'maven_3.8.6'
+            jdk 'jdk11'
+        }
+
+        stages {
+            stage('Git Checkout') {
+                steps {
+                    checkout([$class: 'GitSCM', branches: [[name: '**']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubPasswordLocalSystem', url: 'https://github.com/JasonShuyinta/ReactSpringTodoList.git']]])
+                }
+            }
+            stage('Junit Tests') {
+                steps {
+                    withCredentials([string(credentialsId: 'spring-mongo-uri-test', variable: 'springMongoUriTest'), string(credentialsId: 'authentication_key', variable: 'AuthKey')]) {
+                    bat 'mvn test -f backend/pom.xml -Dspring.app.secretKey=%AuthKey% -Dspring.data.mongodb.uri=%springMongoUriTest% -Dactive.profile=test'
+                    }
+                }
+            }
+            stage('Build Artifacts') {
+                steps {
+                    bat 'mvn -f backend/pom.xml clean install -Dmaven.test.skip=true -Dactive.profile=prod'
+                }
+                post {
+                    success {
+                        bat '''
+                        cd backend/target
+                        rename \"todo-list-backend.jar\" \"todo-list-backend-%BUILD_NUMBER%.jar\"
+                        '''
+                        archiveArtifacts 'backend/target/*.jar'
+                    }
+                }
+            }
+            stage('Deploy artifacts to S3 Bucket') {
+                steps {
+                    s3Upload(workingDir:'backend/target', includePathPattern:'*.jar', bucket:'todo-app-artifacts-repository', path:'builds')
+                }
+            }
+            stage('Create and push docker image to ECR') {
+                steps {
+                    bat 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/e3x2p2e8'
+                    bat 'docker build -t todolist backend/'
+                    bat 'docker tag todolist:latest public.ecr.aws/e3x2p2e8/todolist:latest'
+                    bat 'docker push public.ecr.aws/e3x2p2e8/todolist:latest'
+                }
+            }
+/*        stage('Run shell script on EC2') {
+            steps {
+                withCredentials([string(credentialsId: 'ec2-ip', variable: 'ec2-ip')]) {
+                    bat 'ssh -T %ec2-ip% "docker stop todolistapp"'
+                    bat 'ssh -T %ec2-ip% "docker rm todolistapp"'
+                    bat 'ssh -T %ec2-ip% "docker rmi jason9722/todo-list-app"'
+                    //bat 'ssh -T %ec2ServerUrl% "docker pull jason9722/todo-list-app:latest" '
+                    bat 'ssh -T %ec2-ip% "docker pull public.ecr.aws/e3x2p2e8/todolist:latest"'
+                    bat 'ssh -T %ec2-ip% "docker run -d -p 8001:8003 --name todolistapp public.ecr.aws/e3x2p2e8/todolist:latest" '
+                }
+            }
+        }
+ */
+     }
+}

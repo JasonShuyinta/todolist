@@ -1,0 +1,178 @@
+.App {
+  height: 100vh;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.main-container {
+  height: 100%;
+}
+
+.dark-body-theme { 
+  background-color: rgb(55, 55, 55) !important;
+}
+
+.light-theme {
+  color: black !important;
+}
+
+.dark-theme {
+  background-color: rgb(0, 26, 88) !important;
+  color: white;
+}
+.p-1 {
+  padding: 1rem !important
+}
+
+.mtb-1 {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+.m-0 {
+  margin: 0 !important;
+}
+.mb-1 {
+  margin-bottom: 1rem !important;
+}
+
+.w-100 {
+  width: 100% !important
+}
+
+.w-80 {
+  width: 80% !important;
+}
+
+.h-550 {
+  max-height: 550px !important;
+  overflow-y: hidden;
+}
+.w-max-100 {
+  max-width: 100% !important;
+}
+.center {
+  display: flex !important;
+}
+
+.align-vertically {
+  align-items: center !important;
+}
+
+.center-and-align {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.center-and-start {
+  display: flex !important;
+  justify-content: flex-start !important;
+}
+
+.center-and-end {
+  display: flex !important;
+  justify-content: flex-end !important;
+}
+
+.item-box {
+  display: flex !important;
+  justify-content: center !important;
+  margin-bottom: 1rem !important;
+  max-width: 100% !important;
+  max-height: 100px !important;
+  min-height: 100px !important;
+  height: 100%;
+}
+
+.paper-container {
+  min-height: 85vh;
+  max-height: 85vh;
+  overflow-x: hidden;
+}
+
+.dark-theme-paper-container {
+  background-color: rgb(0, 0, 0) !important; 
+  color: white !important;
+}
+
+.light-theme-paper-container {
+  background-color: rgb(185, 185, 185) !important; 
+}
+
+
+.item-container {
+  display: flex;
+  cursor: pointer !important;
+  padding: 1rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden;
+  max-height: 550px !important;
+}
+
+.item-container:hover {
+  background-color: rgb(205, 211, 234);
+}
+
+.next-btn {
+  color: rgb(0, 0, 0) !important;
+}
+
+.text-container {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  max-width: 90% !important;
+}
+
+.item-detail-title {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: larger;
+}
+
+.item-detail-state {
+  font-size: large !important;
+}
+
+.todo-item {
+  color: brown;
+  font-size: larger;
+}
+
+.in-progress-item {
+  color: rgb(100, 100, 255);
+  font-size: larger;
+}
+
+.item-text {
+  word-wrap: break-word;
+}
+
+.done-item {
+  color: rgb(84, 180, 91);
+  font-size: larger;
+}
+
+.todo-container {
+  background-color: brown !important;
+}
+
+.in-progress-container {
+  background-color: rgb(100, 100, 255) !important;
+}
+
+.done-progress-container {
+  background-color: rgb(84, 180, 91) !important;
+}
+
+.ql-editor {
+  min-height: 200px;
+  max-height: 30vh !important;
+}
