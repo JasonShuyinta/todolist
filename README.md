@@ -140,11 +140,16 @@ What you need to do to deploy your application to the Cloud is basically create 
 ```
 java -jar yourProject.jar
 ```
-This is basically everything you need to boot up your application, and then requests can be made to your BE. There is some configuration to be done though: for example, once you obtain your EC2 instance from AWS, you need to download and install Java, and open the port on your server that the application runs on (Security rules). 
+This is basically everything you need in order to boot up your application, and then requests can be made to your BE. There is some configuration to be done though: for example, once you obtain your EC2 instance from AWS, you need to download and install Java, and open the port on your server that the application runs on (Security rules). 
+This configuration steps that need to be done can be avoided by using Docker and containerized applications, as we will see in the next steps.
 
 Amplify, on the other hand is a similar service to EC2, but we find it much easier to use, especially for FE apps, thats why we uploaded our React app on it. Just simply create a new application following the instructions and connect it to your Git repository where you keep your FE code. Enable *automatic deploys*, and everytime you push code to your repository, a new build will start, deploying your code into production.
 
-Heroku was used as our proxy server Cloud provider mainly because it was free and easy to use. Just like Amplify, automatic deploys are allowed, so all we had to do was create an App following the UI instructions and connect it to our Git repository, and the rest is dealt by Heroku. 
+Elastic Load Balancer is a service used to redirect the traffic to our client to the server instances, and add a layer of security in case of DDOS attacks.
+
+Route 53 was used to buy the domain we attached to our backend server so that we would obtain the SSL certificate in order to avoid CORS problems.
+
+Elastic Container Registry is our repository for Docker images, from where we will push and pull the images we will build during the deployment process.
 
 
 ## DevOps
@@ -176,7 +181,7 @@ You of course need to declare the Maven version you are planning to run your app
 
 stage('Git Checkout') {
                 steps {
-                    checkout([$class: 'GitSCM', branches: [[name: '**']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubPasswordLocalSystem', url: 'https://github.com/JasonShuyinta/ReactSpringTodoList.git']]])
+                    checkout([$class: 'GitSCM', branches: [[name: '**']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubPasswordLocalSystem', url: 'https://github.com/JasonShuyinta/todolist.git']]])
                 }
             }
 ```
