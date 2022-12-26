@@ -10,7 +10,7 @@ pipeline {
         stages {
             stage('Git Checkout') {
                 steps {
-                    checkout([$class: 'GitSCM', branches: [[name: '**']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubPasswordLocalSystem', url: 'https://github.com/JasonShuyinta/ReactSpringTodoList.git']]])
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubPasswordLocalSystem', url: 'https://github.com/JasonShuyinta/todolist.git']]])
                 }
             }
             stage('Junit Tests') {
