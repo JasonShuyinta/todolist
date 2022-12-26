@@ -22,7 +22,10 @@ pipeline {
             }
             stage('Build Artifacts') {
                 steps {
-                    bat 'mvn -f backend/pom.xml clean install -Dmaven.test.skip=true -Dactive.profile=prod'
+                    bat '''
+                    cd backend
+                    mvn clean install -Dmaven.test.skip=true -Dactive.profile=prod
+                    '''
                 }
                 post {
                     success {
