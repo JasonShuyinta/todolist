@@ -27,6 +27,7 @@ All of the communication between components happen through REST API endpoint usi
 
 
 ![Cloud Architecture](https://user-images.githubusercontent.com/50492920/196665362-03de1eaf-10af-47f3-a059-8688efb24d3e.png)
+![Cloud Architecture](https://user-images.githubusercontent.com/50492920/209554248-0e580ca7-2c02-44f1-9693-423524a9e11a.png)
 
 
 
