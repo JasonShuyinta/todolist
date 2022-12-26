@@ -18,15 +18,13 @@ The site can be accessed at [TodoList](https://main.d2c926ip23yazk.amplifyapp.co
 
 For building such a simple app, it is not necessary to implement such an intricate architecture, has it is going to be highly costly and difficult to maintain as a single developer. On the other hand, such architecture would be suitable for more complicated applications, where there is a lot of incoming and outgoing data, different teams working on different parts of the project and frequent delivery of software artifacts. Therefore it is not recommended to use such an architecture for basic projects. 
 
-As you can see from the figure, the software is composed of a Backend (BE),a Frontend (FE) and a proxy server as the means of communication between the two ends. We will discuss each part further in the document. 
+As you can see from the figure, the software is composed of a Backend (BE),a Frontend (FE) and a load balancer to redirect the request to the correct endpoint and port. We will discuss each part further in the document. 
 
 The Backend retrieves and saves its data to a MongoDB database, where all the data in is stored in document-like objects.
-Each component is then deployed to the Cloud using two different providers: the BE and FE use AWS, while the proxy server uses Heroku. 
+Each component is then deployed to the Cloud using AWS as the provider.
 
 All of the communication between components happen through REST API endpoint using the json format. 
 
-
-![Cloud Architecture](https://user-images.githubusercontent.com/50492920/196665362-03de1eaf-10af-47f3-a059-8688efb24d3e.png)
 ![Cloud Architecture](https://user-images.githubusercontent.com/50492920/209554248-0e580ca7-2c02-44f1-9693-423524a9e11a.png)
 
 
@@ -121,24 +119,20 @@ For this reason, we chose to use the in-built state management tool for React, w
 
 Making the API requests was made simple thanks to [axios](https://axios-http.com/), with which just a few lines we are able to make all type of requests to our BE.
 
-#### Proxy
-* Node Js 14.15.1
+#### Load Balancer
 
-A proxy server deployed on Heroku was implemented in the architecture. We decided to implement a proxy server for a few reasons. First of all, it is a matter of security, as we don't want to directly expose the URL of our server where the backend is deployed, in order make it harder for malicious attackers to find out where our data is stored and processed. So how do we achieve this? Basically, our FE makes the requests to our proxy's endpoint, which is https://todo-list-app-proxy.herokuapp.com/, which then makes requests to our BE endpoint, which is safely stored and not disclosed into our proxy servers environment variables (in never appears in the code). 
+A Load Balancer is used so that the API request made by the client (our FE React App) will be correctly redirected to our server endpoint at the correct port. This is particularly useful when we want to prevent a total app crash. Let's say for example that we have 3 instances, each of them running our BE docker container. In case on of our instances crashes for any reason (for example for too much traffic, or an electric blackout), than the load balancer is able to automatically redirect all the traffic to the remaining 2 instances until the broken instance is brought back up. 
 
-So for example, let's take our previous endpoint: *"/api/v1/user/01"* used to retrieve the User with *id* 01 in our DB.
-
-The FE makes the request to *https://todo-list-app-proxy.herokuapp.com/api/v1/user/01* . This endpoint is located on our proxy server writtend in Node Js, and what is does is simply redirect the final part of the API to our actual BE -> *http://xxxxx/api/v1/user/01*. 
-This way, from your browser you will only see the requests being sent to the Heroku server, where we can optionally add some other security logic, like for example, only allowing traffic from a specific IP to be able to communicate to our server, or don't allow too many requests to hit the server at the same time (DDOS attack). 
-
-For this project, just a simple CORS policy was implemented, to allow any request of any type to pass through and reach our server, but in a real world application, some additional functionalities needs to be implemented.
+In our case, we only have 1 instance running, but we used the load balancer in order to obtain the SSL certificate, so that our BE would be reachable at the https endpoint, avoiding us all the CORS handling problems.
 
 #### Cloud
 * AWS EC2 
 * AWS Amplify
-* Heroku
+* Elastic Load Balancer
+* Route 53
+* Elastic Container Registry
 
-The application was deployed on AWS, and the proxy server on Heroku. Hereafter are the reason for this choices:
+The application was deployed on AWS, and using various tools that helped our CI/CD pipeline. Hereafter are the reason for this choices:
  AWS is a pretty common Cloud provider as it allows to easily deploy any application on various type of servers. 
 
 EC2 is the service used where you can deploy your Java application and run it and let anybody in the world be able to use it. There is a free-tier , where under specific thresholds you won't be charged of any fees, and even if you reach the threshold, costs are very low for the type of services you can get. 
