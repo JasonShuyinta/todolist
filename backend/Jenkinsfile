@@ -50,18 +50,5 @@ pipeline {
                     bat 'docker push public.ecr.aws/e3x2p2e8/todolist:latest'
                 }
             }
-/*        stage('Run shell script on EC2') {
-            steps {
-                withCredentials([string(credentialsId: 'ec2-ip', variable: 'ec2-ip')]) {
-                    bat 'ssh -T %ec2-ip% "docker stop todolistapp"'
-                    bat 'ssh -T %ec2-ip% "docker rm todolistapp"'
-                    bat 'ssh -T %ec2-ip% "docker rmi jason9722/todo-list-app"'
-                    //bat 'ssh -T %ec2ServerUrl% "docker pull jason9722/todo-list-app:latest" '
-                    bat 'ssh -T %ec2-ip% "docker pull public.ecr.aws/e3x2p2e8/todolist:latest"'
-                    bat 'ssh -T %ec2-ip% "docker run -d -p 8001:8003 --name todolistapp public.ecr.aws/e3x2p2e8/todolist:latest" '
-                }
-            }
-        }
- */
      }
 }
