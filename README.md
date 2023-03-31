@@ -301,6 +301,9 @@ docker logs [CONTAINER_ID]
 As said before, the FE and the proxy server are automatically deployed using respectively Amplify and Heroku, so each time a commit is pushed to this repository everything will be updated.
 It is not recommended though, to keep all of your project parts in the same repository, it is better to separate them and deal with each one of them separetly.
 
+This is the Build and Deploy infrastructure architecture:
+![Deploy](https://user-images.githubusercontent.com/50492920/229069868-3901ab5b-c1f0-4c2d-b34d-05c56eab59c0.png)
+
 
 #### Useful tips
 
