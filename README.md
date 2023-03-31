@@ -29,7 +29,8 @@ All of the communication between components happen through REST API endpoint usi
 
 What follows is the AWS Architecture and services that are used during a request call to the backend server:
 
-![Web App Reference Architecture](https://user-images.githubusercontent.com/50492920/229061108-2797e1ce-be9f-4b8e-b72c-2e39d0922645.png)
+
+![Web App Reference Architecture (1)](https://user-images.githubusercontent.com/50492920/229070129-bbd62598-9dd5-4621-9b6e-b7876e1927c1.png)
 
 
 ## Techstack
