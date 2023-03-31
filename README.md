@@ -16,6 +16,8 @@ The site can be accessed at [TodoList](https://main.d2c926ip23yazk.amplifyapp.co
 
 ## Architecture
 
+![Cloud Architecture](https://user-images.githubusercontent.com/50492920/209554248-0e580ca7-2c02-44f1-9693-423524a9e11a.png)
+
 For building such a simple app, it is not necessary to implement such an intricate architecture, has it is going to be highly costly and difficult to maintain as a single developer. On the other hand, such architecture would be suitable for more complicated applications, where there is a lot of incoming and outgoing data, different teams working on different parts of the project and frequent delivery of software artifacts. Therefore it is not recommended to use such an architecture for basic projects. 
 
 As you can see from the figure, the software is composed of a Backend (BE),a Frontend (FE) and a load balancer to redirect the request to the correct endpoint and port. We will discuss each part further in the document. 
@@ -25,8 +27,9 @@ Each component is then deployed to the Cloud using AWS as the provider.
 
 All of the communication between components happen through REST API endpoint using the json format. 
 
-![Cloud Architecture](https://user-images.githubusercontent.com/50492920/209554248-0e580ca7-2c02-44f1-9693-423524a9e11a.png)
+What follows is the AWS Architecture and services that are used during a request call to the backend server:
 
+![Web App Reference Architecture](https://user-images.githubusercontent.com/50492920/229061108-2797e1ce-be9f-4b8e-b72c-2e39d0922645.png)
 
 
 ## Techstack
